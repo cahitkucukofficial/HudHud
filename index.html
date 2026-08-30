@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hüdhüd Apps — Gelir-gider uygulamaları stüdyosu</title>
+<meta name="description" content="Hüdhüd Apps, para akışınızı görünür kılan gelir-gider uygulamaları geliştirir. İlk uygulamamız Hüdhüd Defter yakında App Store ve Google Play'de.">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --bg:#F6F2E7;
+    --surface:#FFFFFF;
+    --surface-alt:#EFEADC;
+    --ink:#20242C;
+    --muted:#6E7380;
+    --border:#E1DAC5;
+    --accent:#D97757;
+    --accent-ink:#7A3E29;
+    --income:#3D7A56;
+    --expense:#C1543F;
+    --serif:'Fraunces', serif;
+    --sans:'Inter', sans-serif;
+    --mono:'IBM Plex Mono', monospace;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{ color:inherit; }
+  img,svg{ display:block; max-width:100%; }
+
+  :focus-visible{ outline:2px solid var(--accent-ink); outline-offset:3px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; transition-duration:0.01ms !important; }
+  }
+
+  .wrap{ max-width:1080px; margin:0 auto; padding:0 24px; }
+
+  /* ---------- flight path signature ---------- */
+  .flightpath{
+    position:absolute; left:50%; top:0; width:2px; height:100%;
+    transform:translateX(-50%);
+    pointer-events:none; z-index:0;
+  }
+  .flightpath svg{ position:sticky; top:0; }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:40;
+    background:rgba(246,242,231,0.92); backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 24px; max-width:1080px; margin:0 auto;
+  }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .brand-mark{ width:30px; height:30px; flex-shrink:0; }
+  .brand-name{ font-family:var(--serif); font-weight:600; font-size:19px; letter-spacing:-0.01em; }
+  .brand-name .sub{ font-family:var(--mono); font-size:10px; letter-spacing:0.14em; color:var(--muted); display:block; text-transform:uppercase; margin-top:-2px; }
+
+  nav.links{ display:flex; align-items:center; gap:28px; }
+  nav.links a{ text-decoration:none; font-size:14px; font-weight:500; color:var(--ink); opacity:0.75; transition:opacity 120ms; }
+  nav.links a:hover{ opacity:1; }
+  @media (max-width:720px){ nav.links a.hide-mobile{ display:none; } }
+
+  .lang-toggle{
+    display:flex; border:1px solid var(--border); border-radius:999px; overflow:hidden;
+    font-family:var(--mono); font-size:12px; flex-shrink:0;
+  }
+  .lang-toggle button{
+    border:none; background:transparent; padding:7px 13px; cursor:pointer; color:var(--muted); font-family:inherit;
+  }
+  .lang-toggle button.active{ background:var(--ink); color:var(--bg); }
+
+  /* ---------- hero ---------- */
+  .hero{ position:relative; padding:72px 0 56px; overflow:hidden; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+    position:relative; z-index:1;
+  }
+  @media (max-width:860px){ .hero-grid{ grid-template-columns:1fr; gap:40px; } }
+
+  .eyebrow{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.12em; text-transform:uppercase;
+    color:var(--accent-ink); margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--serif); font-weight:600; font-size:clamp(34px,5vw,54px);
+    line-height:1.05; letter-spacing:-0.015em; margin:0 0 20px;
+  }
+  h1 em{ font-style:italic; color:var(--accent-ink); }
+  .lede{ font-size:17px; color:var(--muted); max-width:46ch; margin:0 0 32px; }
+
+  .cta-row{ display:flex; flex-wrap:wrap; gap:12px; align-items:center; }
+  .badge-soon{
+    display:inline-flex; align-items:center; gap:8px;
+    border:1px solid var(--border); background:var(--surface);
+    border-radius:12px; padding:10px 16px; font-size:13px; font-weight:600;
+  }
+  .badge-soon .dot{ width:7px; height:7px; border-radius:50%; background:var(--accent); flex-shrink:0; }
+
+  /* ---------- ledger mockup (signature illustration) ---------- */
+  .ledger-card{
+    background:var(--surface); border:1px solid var(--border); border-radius:22px;
+    padding:22px; box-shadow:0 24px 48px -24px rgba(32,36,44,0.22);
+    transform:rotate(1.4deg);
+  }
+  .ledger-card .lc-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:14px; }
+  .ledger-card .lc-title{ font-family:var(--serif); font-size:17px; font-weight:600; }
+  .ledger-card .lc-date{ font-family:var(--mono); font-size:11px; color:var(--muted); }
+  .lc-row{
+    display:flex; justify-content:space-between; align-items:center;
+    padding:11px 0; border-top:1px dashed var(--border);
+  }
+  .lc-row:first-of-type{ border-top:none; }
+  .lc-cat{ display:flex; align-items:center; gap:10px; font-size:13.5px; }
+  .lc-dot{ width:26px; height:26px; border-radius:50%; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:13px; }
+  .lc-amt{ font-family:var(--mono); font-size:13.5px; font-weight:500; }
+  .lc-amt.exp{ color:var(--expense); }
+  .lc-amt.inc{ color:var(--income); }
+  .lc-total{
+    margin-top:14px; padding-top:14px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; font-family:var(--mono); font-size:12.5px; color:var(--muted);
+  }
+  .lc-total b{ color:var(--ink); font-size:15px; }
+
+  /* ---------- sections ---------- */
+  section{ position:relative; padding:64px 0; }
+  .section-head{ max-width:56ch; margin-bottom:40px; }
+  h2{ font-family:var(--serif); font-weight:600; font-size:clamp(26px,3.4vw,34px); margin:0 0 12px; letter-spacing:-0.01em; }
+  .section-head p{ color:var(--muted); font-size:15.5px; margin:0; }
+
+  /* app showcase */
+  .app-panel{
+    background:var(--surface); border:1px solid var(--border); border-radius:24px;
+    padding:40px; display:grid; grid-template-columns:1fr 1fr; gap:40px; align-items:center;
+  }
+  @media (max-width:780px){ .app-panel{ grid-template-columns:1fr; padding:28px; } }
+  .app-panel-title{ font-family:var(--serif); font-size:24px; font-weight:600; margin:0 0 8px; }
+  .app-status{ font-family:var(--mono); font-size:11.5px; color:var(--accent-ink); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:14px; display:block; }
+  .feature-list{ list-style:none; margin:20px 0 0; padding:0; display:grid; gap:11px; }
+  .feature-list li{ display:flex; gap:10px; font-size:14.5px; }
+  .feature-list li::before{ content:'—'; color:var(--accent); flex-shrink:0; }
+
+  .mini-mock{ background:var(--surface-alt); border-radius:16px; padding:16px; border:1px solid var(--border); }
+  .mini-mock .row{ display:flex; justify-content:space-between; font-size:12px; padding:8px 0; border-bottom:1px solid var(--border); }
+  .mini-mock .row:last-child{ border-bottom:none; }
+  .mini-mock .row span:first-child{ color:var(--muted); }
+  .mini-mock .row span:last-child{ font-family:var(--mono); }
+
+  /* studio grid */
+  .studio-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  @media (max-width:780px){ .studio-grid{ grid-template-columns:1fr; } }
+  .studio-card{
+    border:1px solid var(--border); border-radius:18px; padding:24px; background:var(--surface);
+    display:flex; flex-direction:column; gap:10px; min-height:170px;
+  }
+  .studio-card.filled{ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .studio-card .sc-tag{ font-family:var(--mono); font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; opacity:0.6; }
+  .studio-card h3{ font-family:var(--serif); font-size:19px; margin:0; font-weight:600; }
+  .studio-card p{ font-size:13.5px; color:var(--muted); margin:0; flex:1; }
+  .studio-card.filled p{ color:rgba(246,242,231,0.7); }
+  .studio-card.empty{ border-style:dashed; justify-content:center; align-items:center; text-align:center; }
+  .studio-card.empty span{ color:var(--muted); font-size:13.5px; }
+
+  /* privacy / support */
+  .doc-block{ background:var(--surface); border:1px solid var(--border); border-radius:22px; padding:36px; }
+  @media (max-width:600px){ .doc-block{ padding:24px; } }
+  .doc-block h3{ font-family:var(--serif); font-size:18px; margin:26px 0 8px; }
+  .doc-block h3:first-child{ margin-top:0; }
+  .doc-block p, .doc-block li{ font-size:14.5px; color:var(--muted); line-height:1.65; }
+  .doc-block ul{ padding-left:20px; margin:8px 0; }
+  .doc-meta{ font-family:var(--mono); font-size:11.5px; color:var(--muted); margin-bottom:24px; display:block; }
+
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:14px; margin-top:20px;
+  }
+  .contact-card{
+    flex:1; min-width:220px; border:1px solid var(--border); border-radius:16px; padding:20px;
+    background:var(--surface-alt);
+  }
+  .contact-card .cc-label{ font-family:var(--mono); font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); display:block; margin-bottom:6px; }
+  .contact-card a{ font-weight:600; text-decoration:none; border-bottom:1px solid var(--accent); }
+
+  footer{ padding:36px 0 48px; border-top:1px solid var(--border); }
+  .footer-row{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:16px; align-items:center; }
+  .footer-row .fmark{ display:flex; align-items:center; gap:8px; font-family:var(--serif); font-weight:600; font-size:15px; }
+  .footer-row .fmark svg{ width:18px; height:18px; }
+  .footer-links{ display:flex; gap:20px; flex-wrap:wrap; }
+  .footer-links a{ font-size:13px; text-decoration:none; color:var(--muted); }
+  .copyright{ font-family:var(--mono); font-size:11.5px; color:var(--muted); margin-top:18px; }
+
+  [data-en]{ display:none; }
+  body.lang-en [data-tr]{ display:none; }
+  body.lang-en [data-en]{ display:inline; }
+  body.lang-en [data-en].block{ display:block; }
+  body.lang-en li[data-en], body.lang-en p[data-en]{ display:block; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a class="brand" href="#top">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="#D97757" stroke-width="1.4"/>
+        <path d="M20 8 L20 20" stroke="#D97757" stroke-width="1.4"/>
+        <path d="M20 8 C16 11 13 11 10 9" stroke="#D97757" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M20 8 C21.5 11.5 24 12.5 27.5 12" stroke="#D97757" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M20 20 C15 24 10 24.5 6 22" stroke="#20242C" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M20 20 C25 24 30 24.5 34 22" stroke="#20242C" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="20" cy="20" r="1.6" fill="#20242C"/>
+      </svg>
+      <span class="brand-name">Hüdhüd<span class="sub">apps studio</span></span>
+    </a>
+    <nav class="links">
+      <a href="#uygulama" data-tr>Uygulama</a><a href="#uygulama" data-en>App</a>
+      <a href="#studio" class="hide-mobile" data-tr>Stüdyo</a><a href="#studio" class="hide-mobile" data-en>Studio</a>
+      <a href="#gizlilik" class="hide-mobile" data-tr>Gizlilik</a><a href="#gizlilik" class="hide-mobile" data-en>Privacy</a>
+      <a href="#destek" data-tr>Destek</a><a href="#destek" data-en>Support</a>
+    </nav>
+    <div class="lang-toggle" role="group" aria-label="Dil seçimi / Language">
+      <button type="button" id="btn-tr" class="active" onclick="setLang('tr')">TR</button>
+      <button type="button" id="btn-en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<div id="top"></div>
+
+<main>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow" data-tr>Bir uygulama stüdyosu</p>
+        <p class="eyebrow" data-en>An app studio</p>
+        <h1>
+          <span data-tr>Para nereye gittiğini <em>hep bilsin.</em></span>
+          <span data-en>Always know where <em>your money went.</em></span>
+        </h1>
+        <p class="lede" data-tr>Hüdhüd Apps, günlük harcamalarınızı ve gelirinizi anlaşılır bir deftere dönüştüren uygulamalar geliştirir. İlk uygulamamız Hüdhüd Defter yolda — sıradaki uygulamalarımız da aynı sadelik ilkesiyle gelecek.</p>
+        <p class="lede" data-en>Hüdhüd Apps builds apps that turn your daily income and expenses into a clear, readable ledger. Our first app, Hüdhüd Defter, is on its way — future apps will follow the same principle of simplicity.</p>
+        <div class="cta-row">
+          <span class="badge-soon"><span class="dot"></span><span data-tr>App Store'da yakında</span><span data-en>Coming soon on the App Store</span></span>
+          <span class="badge-soon"><span class="dot"></span><span data-tr>Google Play'de yakında</span><span data-en>Coming soon on Google Play</span></span>
+        </div>
+      </div>
+      <div class="ledger-card" aria-hidden="true">
+        <div class="lc-head">
+          <span class="lc-title" data-tr>Ağustos Defteri</span><span class="lc-title" data-en>August Ledger</span>
+          <span class="lc-date">29.08.2026</span>
+        </div>
+        <div class="lc-row">
+          <div class="lc-cat"><span class="lc-dot" style="background:#3D7A5622;color:#3D7A56;">$</span><span data-tr>Maaş</span><span data-en>Salary</span></div>
+          <span class="lc-amt inc">+₺42.500</span>
+        </div>
+        <div class="lc-row">
+          <div class="lc-cat"><span class="lc-dot" style="background:#C1543F22;color:#C1543F;">▤</span><span data-tr>Market</span><span data-en>Groceries</span></div>
+          <span class="lc-amt exp">−₺1.240</span>
+        </div>
+        <div class="lc-row">
+          <div class="lc-cat"><span class="lc-dot" style="background:#3B6EA522;color:#3B6EA5;">⚡</span><span data-tr>Fatura</span><span data-en>Bill</span></div>
+          <span class="lc-amt exp">−₺680</span>
+        </div>
+        <div class="lc-row">
+          <div class="lc-cat"><span class="lc-dot" style="background:#D9775722;color:#D97757;">✈</span><span data-tr>Uçak bileti · 6 taksit</span><span data-en>Flight ticket · 6 installments</span></div>
+          <span class="lc-amt exp">−₺1.850</span>
+        </div>
+        <div class="lc-total">
+          <span data-tr>Net bakiye</span><span data-en>Net balance</span>
+          <b>₺38.730</b>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="uygulama">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-tr>Hüdhüd Defter</h2>
+        <h2 data-en>Hüdhüd Defter</h2>
+        <p data-tr>Gelir ve giderinizi tek bir yerde tutan, kredi kartı taksitlerini ve hesap bakiyelerini otomatik takip eden kişisel bir gelir-gider defteri.</p>
+        <p data-en>A personal income-expense ledger that keeps everything in one place, and automatically tracks credit card installments and account balances.</p>
+      </div>
+      <div class="app-panel">
+        <div>
+          <span class="app-status" data-tr>Yakında</span>
+          <span class="app-status" data-en>Coming soon</span>
+          <p class="app-panel-title" data-tr>Elinizdeki paranın hikayesi</p>
+          <p class="app-panel-title" data-en>The story of your money</p>
+          <ul class="feature-list">
+            <li><span data-tr>Gelir, gider, havale ve kredi kartı işlemlerini ayrı ayrı takip edin</span><span data-en>Track income, expenses, transfers and credit card transactions separately</span></li>
+            <li><span data-tr>Taksitli harcamalar otomatik olarak aylara bölünür</span><span data-en>Installment purchases are automatically split across months</span></li>
+            <li><span data-tr>Kategori bazlı bütçe hedefleri ve ilerleme takibi</span><span data-en>Category-based budget goals with progress tracking</span></li>
+            <li><span data-tr>Birden fazla hesap, kart ve kredi bakiyesi tek ekranda</span><span data-en>Multiple accounts, cards and loan balances in one screen</span></li>
+            <li><span data-tr>Verileriniz cihazınızda kalır, sunucuya gönderilmez</span><span data-en>Your data stays on your device — never sent to a server</span></li>
+          </ul>
+        </div>
+        <div class="mini-mock">
+          <div class="row"><span data-tr>Toplam Bakiye</span><span data-en>Total Balance</span><span>₺38.730,00</span></div>
+          <div class="row"><span data-tr>Toplam Gelir</span><span data-en>Total Income</span><span>₺42.500,00</span></div>
+          <div class="row"><span data-tr>Toplam Gider</span><span data-en>Total Expense</span><span>₺3.770,00</span></div>
+          <div class="row"><span data-tr>Açık taksit</span><span data-en>Open installments</span><span>1</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="studio">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-tr>Stüdyo</h2>
+        <h2 data-en>Studio</h2>
+        <p data-tr>Hüdhüd Apps tek bir uygulamayla sınırlı değil — hepsi aynı fikirle çalışacak: paranızı anlamak karmaşık olmamalı.</p>
+        <p data-en>Hüdhüd Apps isn't limited to one app — every product we ship follows the same idea: understanding your money shouldn't be complicated.</p>
+      </div>
+      <div class="studio-grid">
+        <div class="studio-card filled">
+          <span class="sc-tag" data-tr>Yayında değil · yakında</span><span class="sc-tag" data-en>Not live · coming soon</span>
+          <h3>Hüdhüd Defter</h3>
+          <p data-tr>Kişisel gelir-gider takibi ve kredi kartı taksit yönetimi.</p>
+          <p data-en>Personal income-expense tracking and credit card installment management.</p>
+        </div>
+        <div class="studio-card empty">
+          <span data-tr>İkinci uygulama<br>üzerinde çalışılıyor</span>
+          <span data-en>Second app<br>in progress</span>
+        </div>
+        <div class="studio-card empty">
+          <span data-tr>Bir sonraki fikir<br>burada yer alacak</span>
+          <span data-en>The next idea<br>goes here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gizlilik">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-tr>Gizlilik Politikası</h2>
+        <h2 data-en>Privacy Policy</h2>
+        <p data-tr>Bu politika, Hüdhüd Apps tarafından geliştirilen ve yayınlanan tüm uygulamalar (şu an: Hüdhüd Defter) için geçerlidir.</p>
+        <p data-en>This policy applies to all apps developed and published by Hüdhüd Apps (currently: Hüdhüd Defter).</p>
+      </div>
+      <div class="doc-block">
+        <span class="doc-meta" data-tr>Son güncelleme: 29 Ağustos 2026</span>
+        <span class="doc-meta" data-en>Last updated: August 29, 2026</span>
+
+        <h3 data-tr>1. Genel Bakış</h3>
+        <h3 data-en>1. Overview</h3>
+        <p data-tr>Hüdhüd Apps olarak geliştirdiğimiz uygulamalar, kayıt veya giriş gerektirmeyen kişisel araçlardır. Uygulamaya girdiğiniz tüm veriler (işlemler, hesap adları, bakiyeler, kategoriler, notlar ve tercihler) yalnızca sizin cihazınızda saklanır.</p>
+        <p data-en>The apps we build at Hüdhüd Apps are personal tools that require no sign-up or login. All data you enter into an app (transactions, account names, balances, categories, notes, and preferences) is stored only on your own device.</p>
+
+        <h3 data-tr>2. Topladığımız Veriler</h3>
+        <h3 data-en>2. Data We Collect</h3>
+        <p data-tr>Uygulamalarımız herhangi bir sunucuya veri göndermez. Girdiğiniz finansal bilgiler, kişisel notlar veya tercihler bizim tarafımızdan görülemez, toplanmaz veya işlenmez. Konumunuza, kişilerinize, kameranıza veya mikrofonunuza erişmiyoruz.</p>
+        <p data-en>Our apps do not transmit any data to a server. The financial information, personal notes, or preferences you enter are never seen, collected, or processed by us. We do not access your location, contacts, camera, or microphone.</p>
+
+        <h3 data-tr>3. Verilerinizin Saklanması</h3>
+        <h3 data-en>3. How Your Data Is Stored</h3>
+        <p data-tr>Tüm veriler cihazınızın yerel belleğinde tutulur. Uygulamayı silerseniz veya cihaz verilerini sıfırlarsanız, kayıtlarınız da silinir. Şifre/PIN kilidi gibi bir güvenlik özelliği açtıysanız, verilerinize yalnızca o kilidi bilen kişiler erişebilir.</p>
+        <p data-en>All data is kept in your device's local storage. If you delete the app or reset your device data, your records are deleted as well. If you enable a PIN/passcode lock feature, only someone who knows that code can access your data.</p>
+
+        <h3 data-tr>4. Üçüncü Taraflarla Paylaşım</h3>
+        <h3 data-en>4. Third-Party Sharing</h3>
+        <p data-tr>Verilerinizi reklam, analiz veya başka bir ticari amaçla hiçbir üçüncü tarafla paylaşmıyoruz, satmıyoruz veya kiralamıyoruz.</p>
+        <p data-en>We do not share, sell, or rent your data to any third party for advertising, analytics, or any other commercial purpose.</p>
+
+        <h3 data-tr>5. Hesap Oluşturma ve Silme</h3>
+        <h3 data-en>5. Account Creation &amp; Deletion</h3>
+        <p data-tr>Uygulamalarımız bir kullanıcı hesabı oluşturmanızı gerektirmez. Bu nedenle ayrı bir "hesap silme" işlemi yoktur — verilerinizi uygulama içindeki ayarlar üzerinden istediğiniz zaman kalıcı olarak silebilir veya uygulamayı cihazınızdan kaldırarak tüm verileri temizleyebilirsiniz.</p>
+        <p data-en>Our apps do not require you to create a user account. Because of this, there is no separate "account deletion" process — you can permanently delete your data at any time from within the app's settings, or remove the app from your device to clear all data.</p>
+
+        <h3 data-tr>6. Çocukların Gizliliği</h3>
+        <h3 data-en>6. Children's Privacy</h3>
+        <p data-tr>Uygulamalarımız genel kitleye yönelik kişisel finans araçlarıdır ve bilerek 13 yaşın altındaki çocuklardan veri toplamaz.</p>
+        <p data-en>Our apps are general-audience personal finance tools and do not knowingly collect data from children under 13.</p>
+
+        <h3 data-tr>7. Bu Politikadaki Değişiklikler</h3>
+        <h3 data-en>7. Changes to This Policy</h3>
+        <p data-tr>Uygulamalarımıza yeni özellikler eklendikçe bu politikayı güncelleyebiliriz. Önemli değişikliklerde bu sayfadaki "son güncelleme" tarihini değiştiririz.</p>
+        <p data-en>We may update this policy as we add new features to our apps. Material changes will be reflected by updating the "last updated" date on this page.</p>
+
+        <h3 data-tr>8. Bize Ulaşın</h3>
+        <h3 data-en>8. Contact Us</h3>
+        <p data-tr>Gizlilikle ilgili sorularınız için <a href="#destek" style="border-bottom:1px solid var(--accent);text-decoration:none;">Destek</a> bölümündeki e-posta adresinden bize ulaşabilirsiniz.</p>
+        <p data-en>For privacy questions, reach us at the email address in the <a href="#destek" style="border-bottom:1px solid var(--accent);text-decoration:none;">Support</a> section below.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="destek">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 data-tr>Destek</h2>
+        <h2 data-en>Support</h2>
+        <p data-tr>Bir sorun mu yaşadınız, yoksa bir özellik önerisi mi var? İkisi için de buradan ulaşabilirsiniz.</p>
+        <p data-en>Ran into an issue, or have a feature idea? Reach us here for either one.</p>
+      </div>
+      <div class="contact-row">
+        <div class="contact-card">
+          <span class="cc-label" data-tr>E-posta ile destek</span><span class="cc-label" data-en>Email support</span>
+          <a href="mailto:destek@hudhudapps.com">destek@hudhudapps.com</a>
+        </div>
+        <div class="contact-card">
+          <span class="cc-label" data-tr>Özellik önerisi</span><span class="cc-label" data-en>Feature request</span>
+          <a href="mailto:destek@hudhudapps.com?subject=%C3%96neri" data-tr>Öneri gönder →</a>
+          <a href="mailto:destek@hudhudapps.com?subject=Feature%20request" data-en>Send a suggestion →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="fmark">
+        <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="19" stroke="#D97757" stroke-width="1.6"/>
+          <path d="M20 8 L20 20" stroke="#D97757" stroke-width="1.6"/>
+          <path d="M20 20 C15 24 10 24.5 6 22" stroke="#20242C" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M20 20 C25 24 30 24.5 34 22" stroke="#20242C" stroke-width="1.6" stroke-linecap="round"/>
+        </svg>
+        Hüdhüd Apps
+      </div>
+      <div class="footer-links">
+        <a href="#uygulama" data-tr>Uygulama</a><a href="#uygulama" data-en>App</a>
+        <a href="#studio" data-tr>Stüdyo</a><a href="#studio" data-en>Studio</a>
+        <a href="#gizlilik" data-tr>Gizlilik</a><a href="#gizlilik" data-en>Privacy</a>
+        <a href="#destek" data-tr>Destek</a><a href="#destek" data-en>Support</a>
+      </div>
+    </div>
+    <p class="copyright" data-tr>© 2026 Hüdhüd Apps. Tüm hakları saklıdır.</p>
+    <p class="copyright" data-en>© 2026 Hüdhüd Apps. All rights reserved.</p>
+  </div>
+</footer>
+
+<script>
+  function setLang(lang){
+    document.body.classList.toggle('lang-en', lang === 'en');
+    document.documentElement.lang = lang;
+    document.getElementById('btn-tr').classList.toggle('active', lang === 'tr');
+    document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+    try{ localStorage.setItem('hudhud-lang', lang); }catch(e){}
+  }
+  (function(){
+    try{
+      var saved = localStorage.getItem('hudhud-lang');
+      if(saved === 'en') setLang('en');
+    }catch(e){}
+  })();
+</script>
+
+</body>
+</html>
