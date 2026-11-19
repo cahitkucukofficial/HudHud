@@ -472,7 +472,7 @@ function ekle(kap,a,idx){var d=el('div','ek'),im=new Image();im.src=gorsel(a,idx
 /* hero üçlü */
 var uclu=$('#uclu'),hd=[],heroG=false;
 function heroKur(){hd.forEach(function(d){d.durdur()});hd=[];uclu.innerHTML='';
- [0,1,2,3,4].forEach(function(k){var a=A[k],p=el('div','p'),tl=el('div','tel');tl.style.setProperty('--oran',a.oran);
+ [3,2,0,1,4].forEach(function(k){var a=A[k],p=el('div','p'),tl=el('div','tel');tl.style.setProperty('--oran',a.oran);
   slaytlar(a).slice(0,3).forEach(function(s){var dv=el('div','ek'),im=new Image();im.src=s.u;im.alt='';im.draggable=false;dv.appendChild(im);tl.appendChild(dv)});p.appendChild(tl);p.appendChild(el('small',null,an(a,0)));
   p.onclick=function(){sec(k);$('#ozellikler').scrollIntoView({behavior:'smooth'})};uclu.appendChild(p);
   var d=degistirici(tl,3400+k*450);hd.push(d);if(heroG)setTimeout(d.baslat,k*700)})}
