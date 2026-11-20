@@ -65,6 +65,8 @@ img.sz{box-shadow:none!important;background:none!important;border-radius:0!impor
 /* uygulama kartları */
 .kartlar{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
 @media(max-width:860px){.kartlar{grid-template-columns:1fr}}
+.kartlar>.uk:last-child:nth-child(odd){grid-column:1/-1;justify-self:center;width:calc(50% - 9px)}
+@media(max-width:860px){.kartlar>.uk:last-child:nth-child(odd){width:100%;justify-self:stretch}}
 .uk{all:unset;box-sizing:border-box;cursor:pointer;display:block;background:var(--kart);border:1px solid var(--cizgi);border-radius:24px;padding:26px;transition:.3s;position:relative;overflow:hidden}
 .uk:before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--r)}
 .uk:hover{transform:translateY(-4px);box-shadow:var(--golge)}
