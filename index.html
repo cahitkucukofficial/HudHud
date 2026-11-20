@@ -590,11 +590,12 @@ uygula();yonlendir();
 /* geri tuşunda kaydırma konumunu koru */
 (function(){try{history.scrollRestoration='manual'}catch(e){}
 function K(){return 'sy:'+location.pathname+location.hash}
-function ks(){try{sessionStorage.setItem(K(),String(window.pageYOffset||document.documentElement.scrollTop||0))}catch(e){}}
+function ks(){try{var v=String(window.pageYOffset||document.documentElement.scrollTop||0);sessionStorage.setItem(K(),v);sessionStorage.setItem('syson',JSON.stringify({h:location.hash,y:+v}))}catch(e){}}
 addEventListener('pagehide',ks);
 document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a&&!/^#/.test(a.getAttribute('href')))ks()},true);
 var n=null;try{n=performance.getEntriesByType('navigation')[0]}catch(e){}
-if(n&&n.type==='back_forward'){var y=null;try{y=sessionStorage.getItem(K())}catch(e){}
+var rt=false;try{if(sessionStorage.getItem('syret')==='1'){rt=true;sessionStorage.removeItem('syret')}}catch(e){}
+if((n&&n.type==='back_forward')||rt){var y=null;try{if(rt){var o=JSON.parse(sessionStorage.getItem('syson')||'null');if(o&&o.h===location.hash)y=o.y}else y=sessionStorage.getItem(K())}catch(e){}
 if(y!=null){y=+y;var d=0,iv=setInterval(function(){d++;if(Math.abs((window.pageYOffset||0)-y)>2)window.scrollTo({top:y,behavior:'instant'});if(d>=12)clearInterval(iv)},150)}}})();
 window.__ok=true;
 })();
