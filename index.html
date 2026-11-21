@@ -74,6 +74,12 @@ img.sz{box-shadow:none!important;background:none!important;border-radius:0!impor
 .uk img{width:64px;height:64px;border-radius:15px;box-shadow:0 2px 8px rgba(0,0,0,.18)}
 .uk h3{margin:0;font-size:19px}
 .durum{display:inline-block;font-size:11.4px;font-weight:700;border:1px solid var(--cizgi);border-radius:999px;padding:2px 10px;color:var(--soluk);margin-top:4px}
+.durum,.bilgi .rozet.durum{border:0!important;color:#fff!important;background:#6B7280!important;font-weight:800!important;letter-spacing:.1px}
+.durum{font-size:12.5px;padding:4px 13px}
+.bilgi .rozet[class*="d-"]{color:#fff;font-weight:800;padding:5px 14px}
+.d-yayinda{background:#1E9E5A!important;color:#fff!important}
+.d-yakinda{background:#F2A60C!important;color:#3d2a00!important}
+.d-ucretsiz{background:#007AFF!important;color:#fff!important}
 .uk p{margin:0 0 14px;color:var(--soluk);font-size:14.25px}
 .uk .git{color:var(--r);font-weight:700}
 /* anahtar */
@@ -556,7 +562,7 @@ function heroKur(){hd.forEach(function(d){d.durdur()});hd=[];uclu.innerHTML='';
 gorunur(uclu,function(v){heroG=v;hd.forEach(function(d,k){v?setTimeout(d.baslat,k*700):d.durdur()})});
 /* kartlar + bant simgeleri */
 function kartKur(){var kk=$('#kartlar');kk.innerHTML='';
- A.forEach(function(a,k){var c=el('button','uk','<div class="st"><img class="'+(a.sz?'sz':'')+'" src="'+a.icon+'" alt=""><div><h3>'+an(a,1)+'</h3><span class="durum">'+t(a.durK)+'</span></div></div><p>'+t(a.kisaK)+'</p><span class="git">'+t('incele')+'</span>');c.style.setProperty('--r',a.renk);
+ A.forEach(function(a,k){var c=el('button','uk','<div class="st"><img class="'+(a.sz?'sz':'')+'" src="'+a.icon+'" alt=""><div><h3>'+an(a,1)+'</h3><span class="durum d-'+a.durK+'">'+t(a.durK)+'</span></div></div><p>'+t(a.kisaK)+'</p><span class="git">'+t('incele')+'</span>');c.style.setProperty('--r',a.renk);
   c.onclick=function(){sec(k);$('#ozellikler').scrollIntoView({behavior:'smooth'})};kk.appendChild(c)})}
 A.forEach(function(a){{var im=$('#ikonlar').appendChild(el('img',null));im.src=a.icon;if(a.sz)im.className='sz'}});
 var anahtarlar=$$('[data-anahtar]');
@@ -621,7 +627,7 @@ function detKur(){var a=A[app],d=a.det,p=d.p,h=$('#detayIc'),i,s='';
 /* uygulama seç */
 function sec(k){app=k;var a=A[k];document.documentElement.style.setProperty('--a',a.renk);
  anahtarlar.forEach(function(w){$$('button',w).forEach(function(b,j){b.classList.toggle('on',j===k)})});
- var b=$('#bilgi');b.innerHTML='<span class="rozet">'+a.etK.map(t).join(' · ')+'</span><p>'+t(a.acK)+'</p>'+magBtn(a)+(ekDurum(a)==='yedek'?'<p style="font-size:13px;margin-top:10px">'+t('ek_not3')+'</p>':'');b.classList.remove('gec');void b.offsetWidth;b.classList.add('gec');
+ var b=$('#bilgi');b.innerHTML='<span class="rozet d-'+a.durK+'">'+a.etK.map(t).join(' · ')+'</span><p>'+t(a.acK)+'</p>'+magBtn(a)+(ekDurum(a)==='yedek'?'<p style="font-size:13px;margin-top:10px">'+t('ek_not3')+'</p>':'');b.classList.remove('gec');void b.offsetWidth;b.classList.add('gec');
  var kv=koyuVar(a),es=$('#ekanahtar');es.hidden=!kv;if(!kv)ekTema='light';
  $$('button',es).forEach(function(x){x.classList.toggle('on',x.dataset.t===ekTema)});
  var du=ekDurum(a),en=$('#eknot'),nk=du==='kismi'?'ek_not2':(du==='yedek'?'ek_not3':'ek_not');en.hidden=(du==='tam');en.setAttribute('data-i',nk);en.innerHTML=t(nk);
