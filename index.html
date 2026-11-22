@@ -355,7 +355,7 @@ footer .kap{padding-top:30px!important}
 
 /* tema geçişi: yayılan daire */
 ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
-::view-transition-new(root){animation:vtGoster .65s cubic-bezier(.2,.7,.2,1) both}
+::view-transition-new(root){animation:vtGoster 1.05s cubic-bezier(.45,.05,.25,1) both}
 @keyframes vtGoster{from{clip-path:circle(0 at var(--vt-x,90%) var(--vt-y,4%))}to{clip-path:circle(160vmax at var(--vt-x,90%) var(--vt-y,4%))}}
 /* kaydırınca beliren öğeler (translate ile; mevcut transform'lara dokunmaz) */
 .gor2{opacity:0;translate:0 26px;transition:opacity .8s ease,translate .9s cubic-bezier(.2,.7,.2,1)}
