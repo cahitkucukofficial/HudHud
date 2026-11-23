@@ -1,0 +1,17 @@
+name: Kurulum dosyasını sürüme yükle
+on:
+  push:
+    branches: [main]
+    paths: ['indir/ProgramKaldirCK-Setup.exe']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  yukle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: v1.0 sürümüne yükle (aynı adlı dosyanın yerine)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release upload v1.0 indir/ProgramKaldirCK-Setup.exe --clobber
