@@ -2,7 +2,7 @@ name: Kurulum dosyasını sürüme yükle
 on:
   push:
     branches: [main]
-    paths: ['indir/ProgramKaldirCK-Setup.exe']
+    paths: ['indir/ProgramKaldirCK-Setup.exe', 'indir/ProgramKaldirCK-Portable.zip']
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,7 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: v1.0 sürümüne yükle (aynı adlı dosyanın yerine)
+      - name: v1.0 sürümüne yükle (aynı adlı dosyaların yerine)
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh release upload v1.0 indir/ProgramKaldirCK-Setup.exe --clobber
+        run: |
+          gh release upload v1.0 indir/ProgramKaldirCK-Setup.exe --clobber
+          test -f indir/ProgramKaldirCK-Portable.zip && gh release upload v1.0 indir/ProgramKaldirCK-Portable.zip --clobber || echo "zip henuz yok, atlandi"
