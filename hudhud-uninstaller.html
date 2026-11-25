@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="tr" data-l="tr">
+<head>
+<meta charset="utf-8">
+<script>try{var __t=localStorage.getItem("tema");if(__t)document.documentElement.setAttribute("data-tema",__t)}catch(e){}</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hudhud Uninstaller — Windows programlarını güvenle kaldırın | Hudhud Apps</title>
+<meta name="description" content="Hudhud Uninstaller: Windows programlarını kaldırır, mağaza uygulamalarını ve başlangıç öğelerini yönetir, geride kalan dosya/kayıt izlerini güvenle temizler.">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://hudhudapps.com/hudhud-uninstaller.html">
+<meta name="theme-color" content="#0067C0">
+<style>
+:root{--bg:#faf7f2;--kart:#fff;--yazi:#1c1917;--soluk:#6b6460;--cizgi:#e7e1d8;--a:#0067C0}
+html[data-tema=dark]{--bg:#14110f;--kart:#1d1916;--yazi:#f5efe8;--soluk:#a89f97;--cizgi:#2c2723;color-scheme:dark}
+@media(prefers-color-scheme:dark){html:not([data-tema=light]){--bg:#14110f;--kart:#1d1916;--yazi:#f5efe8;--soluk:#a89f97;--cizgi:#2c2723;color-scheme:dark}}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--yazi);font:300 16px/1.65 "Helvetica Neue",Helvetica,Arimo,Arial,sans-serif;letter-spacing:-.01em}
+a{color:var(--a)}
+.ust{display:flex;justify-content:space-between;align-items:center;gap:12px;max-width:1080px;margin:0 auto;padding:16px 20px}
+.geri{color:var(--soluk);text-decoration:none;font-size:15px}.geri:hover{color:var(--yazi)}
+.dil{display:flex;gap:4px;border:1px solid var(--cizgi);border-radius:999px;padding:3px;background:var(--kart)}
+.dil button{font:inherit;font-size:13px;border:0;background:none;color:var(--soluk);padding:4px 12px;border-radius:999px;cursor:pointer}
+.dil button[aria-pressed=true]{background:var(--a);color:#fff}
+.kap{max-width:1080px;margin:0 auto;padding:4px 20px 48px}
+.lg{display:none}
+html[data-l="tr"] .lg[data-l="tr"]{display:block}html[data-l="en"] .lg[data-l="en"]{display:block}
+.herokart{background:var(--kart);border:1px solid var(--cizgi);border-radius:28px;padding:36px 40px 40px;margin:10px 0 36px;box-shadow:0 18px 50px rgba(0,0,0,.08)}
+.hero{display:flex;align-items:center;gap:28px;flex-wrap:wrap;padding:0;text-align:left;margin:0 0 10px}
+.heroinfo{flex:1;min-width:280px}
+.uyg{display:flex;align-items:center;gap:14px;margin:0 0 6px}
+.uyg .ik{width:56px;height:56px;border-radius:14px;box-shadow:0 4px 14px rgba(0,0,0,.14);background:var(--a);display:flex;align-items:center;justify-content:center;font-size:26px;color:#fff;flex:none}
+.uyg b{display:block;font-weight:500;font-size:19px;letter-spacing:-.02em}.uyg span{color:var(--soluk);font-size:14px}
+h1{font-weight:500;font-size:clamp(26px,5vw,34px);line-height:1.15;letter-spacing:-.03em;margin:10px 0 6px}
+.tag{font-size:15.5px;color:var(--soluk);margin:0 0 4px;line-height:1.5}
+.surum-bilgi{font-size:12.5px;color:var(--soluk);margin:0 0 16px;opacity:.85}
+.cta{display:flex;justify-content:flex-start;gap:10px;flex-wrap:wrap;margin:0}
+.btn{display:inline-block;background:var(--a);color:#fff!important;text-decoration:none;font-weight:500;padding:9px 18px;border-radius:12px;margin:0;font-size:14.5px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease}
+.btn:hover{transform:scale(1.06);box-shadow:0 6px 16px rgba(0,0,0,.18)}
+.btn:active{transform:scale(.97);transition:transform .1s ease}
+.btn.ikinci{background:var(--kart);color:var(--yazi)!important;border:1px solid var(--cizgi)}
+.ozgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:28px 0 0}
+@media(max-width:860px){.ozgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.ozgrid{grid-template-columns:1fr}.herokart{padding:28px 22px}.hero{flex-direction:column;align-items:center;text-align:center}.heroinfo{text-align:center}.uyg{justify-content:center}.cta{justify-content:center}}
+.ozk{background:var(--kart);border:1px solid var(--cizgi);border-radius:16px;padding:20px 22px}
+.ozk .ic{font-size:24px;margin-bottom:8px}
+.ozk b{display:block;font-weight:500;margin-bottom:5px;letter-spacing:-.01em;font-size:15.5px}
+.ozk span{color:var(--soluk);font-size:14.5px;line-height:1.55}
+.gereks{background:var(--kart);border:1px solid var(--cizgi);border-radius:16px;padding:16px 22px;margin:30px 0 0;font-size:14.5px;color:var(--soluk)}
+.gereks b{color:var(--yazi)}
+h2{font-weight:500;font-size:19px;letter-spacing:-.02em;margin:30px 0 8px}
+footer{max-width:1080px;margin:0 auto;padding:22px 20px 40px;border-top:1px solid var(--cizgi);color:var(--soluk);font-size:13.5px;text-align:center;line-height:1.7}
+footer a{color:inherit}
+</style>
+</head>
+<body>
+<div class="ust">
+<a class="geri" href="index.html">&larr; <span class="lg" data-l="tr">Hudhud Apps'e dön</span><span class="lg" data-l="en">Back to Hudhud Apps</span></a>
+<div class="dil"><button data-l="tr" aria-pressed="true">TR</button><button data-l="en">EN</button></div>
+</div>
+<main class="kap">
+<div class="herokart">
+<div class="hero">
+<div class="heroinfo">
+<div class="uyg"><div class="ik">&#128230;</div><div><b>Hudhud Uninstaller</b><span>Hudhud Apps</span></div></div>
+<h1><span class="lg" data-l="tr">Windows programlarını güvenle kaldırın</span><span class="lg" data-l="en">Safely uninstall Windows programs</span></h1>
+<p class="tag lg" data-l="tr">Programları kaldırır, Windows Mağazası uygulamalarını ve başlangıç öğelerini yönetir; kaldırmadan sonra geride kalan dosya ve kayıt defteri izlerini güvenle temizler.</p>
+<p class="tag lg" data-l="en">Uninstalls programs, manages Windows Store apps and startup items, and safely cleans up leftover files and registry entries after uninstalling.</p>
+<p class="surum-bilgi"><span class="lg" data-l="tr">Sürüm <span class="surum-no">—</span> &middot; <span class="surum-tarih">—</span> tarihinde yayımlandı</span><span class="lg" data-l="en">Version <span class="surum-no">—</span> &middot; released <span class="surum-tarih">—</span></span></p>
+<div class="cta">
+<a class="btn" href="indir/HudhudUninstaller-Setup.exe"><span class="lg" data-l="tr">&#11015; Kurulum Dosyasını İndir</span><span class="lg" data-l="en">&#11015; Download Installer</span></a>
+<a class="btn ikinci" href="indir/HudhudUninstaller-Portable.zip"><span class="lg" data-l="tr">Taşınabilir (.zip)</span><span class="lg" data-l="en">Portable (.zip)</span></a>
+</div>
+</div>
+</div>
+<div class="ozgrid">
+<div class="ozk"><div class="ic">&#128230;</div><b class="lg" data-l="tr">Tam Kaldırma</b><b class="lg" data-l="en">Full removal</b><span class="lg" data-l="tr">Programın kendi kaldırıcısını çalıştırır, sonra geride kalan dosya ve kayıt defteri izlerini tarar.</span><span class="lg" data-l="en">Runs the program's own uninstaller, then scans for leftover files and registry entries.</span></div>
+<div class="ozk"><div class="ic">&#128273;</div><b class="lg" data-l="tr">Güvenli Derin Temizlik</b><b class="lg" data-l="en">Safe deep clean</b><span class="lg" data-l="tr">Çok genel/ortak sözcüklere dayalı yanlış klasör eşleşmelerini engelleyen bir kara liste kullanır.</span><span class="lg" data-l="en">Uses a blocklist to prevent false-positive folder matches from overly generic words.</span></div>
+<div class="ozk"><div class="ic">&#127760;</div><b class="lg" data-l="tr">6 Dil</b><b class="lg" data-l="en">6 languages</b><span class="lg" data-l="tr">Türkçe, İngilizce, Almanca, İspanyolca, Fransızca ve İtalyanca arayüz.</span><span class="lg" data-l="en">Turkish, English, German, Spanish, French and Italian interface.</span></div>
+<div class="ozk"><div class="ic">&#128230;</div><b class="lg" data-l="tr">Mağaza &amp; Başlangıç</b><b class="lg" data-l="en">Store &amp; startup</b><span class="lg" data-l="tr">Windows Mağazası uygulamalarını ve başlangıçta çalışan öğeleri de yönetir.</span><span class="lg" data-l="en">Also manages Windows Store apps and items that run at startup.</span></div>
+<div class="ozk"><div class="ic">&#127912;</div><b class="lg" data-l="tr">Renk Şemaları</b><b class="lg" data-l="en">Color schemes</b><span class="lg" data-l="tr">Windows 11 ve Hüdhüd dahil birden çok görünüm arasında seçim yapabilirsiniz.</span><span class="lg" data-l="en">Choose between several looks, including Windows 11 and Hüdhüd.</span></div>
+<div class="ozk"><div class="ic">&#128260;</div><b class="lg" data-l="tr">Otomatik Güncelleme Bildirimi</b><b class="lg" data-l="en">Update notifications</b><span class="lg" data-l="tr">Yeni sürüm çıktığında uygulama içinde sessizce haber verir.</span><span class="lg" data-l="en">Silently notifies you in-app when a new version is available.</span></div>
+</div>
+<div class="gereks"><b class="lg" data-l="tr">Gereksinimler:</b><span class="lg" data-l="tr"> Windows 10/11 (64-bit), yönetici hakları.</span><b class="lg" data-l="en">Requirements:</b><span class="lg" data-l="en"> Windows 10/11 (64-bit), administrator rights.</span></div>
+</div>
+</main>
+
+<footer>
+<span class="lg" data-l="tr">Telif hakkı CK © 2026 Tüm hakları saklıdır.</span><span class="lg" data-l="en">Copyright CK © 2026 All rights reserved.</span><br>
+Hudhud Apps. Ahmet Rauf Küçük<br>
+<a href="mailto:destek@hudhudapps.com">destek@hudhudapps.com</a>
+</footer>
+
+<script>(function(){
+var AV=["tr","en"],LG=AV,h=document.documentElement,
+T={tr:document.title,en:"Hudhud Uninstaller — Safely uninstall Windows programs | Hudhud Apps"},
+m=location.search.match(/[?&]lang=([a-z]{2})/),
+want=m?m[1]:((navigator.language||'tr').slice(0,2).toLowerCase());
+function pick(x){return AV.indexOf(x)>=0?x:'en'}
+function s(x){var c=pick(x);h.setAttribute('data-l',c);h.lang=c;document.title=T[c];var b=document.querySelectorAll('.dil button');for(var i=0;i<b.length;i++)b[i].setAttribute('aria-pressed',b[i].dataset.l===c)}
+s(LG.indexOf(want)>=0?want:'tr');var b=document.querySelectorAll('.dil button');for(var i=0;i<b.length;i++)b[i].onclick=function(){s(this.dataset.l)};
+})();
+</script>
+<script>fetch("hudhud-uninstaller-surum.json").then(function(r){return r.json()}).then(function(v){document.querySelectorAll(".surum-no").forEach(function(e){e.textContent=v.surum||"—"});document.querySelectorAll(".surum-tarih").forEach(function(e){e.textContent=v.tarih||"—"})}).catch(function(){})</script>
+
+</body>
+</html>
