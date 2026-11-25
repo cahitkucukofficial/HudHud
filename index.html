@@ -1,7 +1,7 @@
 <!doctype html><html lang="tr" data-yazi="4"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Hudhud Apps — Sade ve güvenilir uygulamalar</title><meta name="description" content="Hudhud Apps: gelir gider takibi, bütçe, yakıt fiyatları, hesap makinesi ve soyağacı için sade, reklamsız uygulamalar. Verileriniz cihazınızda kalır. iPhone ve Windows.">
-<link rel="canonical" href="https://www.hudhudapps.com/">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Hudhud Apps"><meta property="og:title" content="Hudhud Apps — Sade ve güvenilir uygulamalar"><meta property="og:description" content="Hudhud Apps: gelir gider takibi, bütçe, yakıt fiyatları, hesap makinesi ve soyağacı için sade, reklamsız uygulamalar. Verileriniz cihazınızda kalır. iPhone ve Windows."><meta property="og:url" content="https://www.hudhudapps.com/"><meta property="og:image" content="https://www.hudhudapps.com/gorseller/ac86b8e06f.png">
+<link rel="canonical" href="https://www.hudhudapps.com/"><link rel="alternate" hreflang="tr" href="https://www.hudhudapps.com/"><link rel="alternate" hreflang="en" href="https://www.hudhudapps.com/en/"><link rel="alternate" hreflang="de" href="https://www.hudhudapps.com/de/"><link rel="alternate" hreflang="fr" href="https://www.hudhudapps.com/fr/"><link rel="alternate" hreflang="es" href="https://www.hudhudapps.com/es/"><link rel="alternate" hreflang="it" href="https://www.hudhudapps.com/it/"><link rel="alternate" hreflang="ru" href="https://www.hudhudapps.com/ru/"><link rel="alternate" hreflang="pt" href="https://www.hudhudapps.com/pt/"><link rel="alternate" hreflang="pl" href="https://www.hudhudapps.com/pl/"><link rel="alternate" hreflang="x-default" href="https://www.hudhudapps.com/en/">
+<meta property="og:type" content="website"><meta property="og:locale" content="tr_TR"><meta property="og:site_name" content="Hudhud Apps"><meta property="og:title" content="Hudhud Apps — Sade ve güvenilir uygulamalar"><meta property="og:description" content="Hudhud Apps: gelir gider takibi, bütçe, yakıt fiyatları, hesap makinesi ve soyağacı için sade, reklamsız uygulamalar. Verileriniz cihazınızda kalır. iPhone ve Windows."><meta property="og:url" content="https://www.hudhudapps.com/"><meta property="og:image" content="https://www.hudhudapps.com/gorseller/ac86b8e06f.png">
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="Hudhud Apps — Sade ve güvenilir uygulamalar"><meta name="twitter:description" content="Hudhud Apps: gelir gider takibi, bütçe, yakıt fiyatları, hesap makinesi ve soyağacı için sade, reklamsız uygulamalar. Verileriniz cihazınızda kalır. iPhone ve Windows.">
 <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Organization", "name": "Hudhud Apps", "url": "https://www.hudhudapps.com/", "logo": "https://www.hudhudapps.com/gorseller/ac86b8e06f.png", "email": "destek@hudhudapps.com"}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Kasa Defteri CK", "applicationCategory": "FinanceApplication", "operatingSystem": "iOS", "url": "https://apps.apple.com/app/id6833670975", "author": {"@type": "Organization", "name": "Hudhud Apps"}}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Hesap Makinesi Hudhud", "applicationCategory": "UtilitiesApplication", "operatingSystem": "iOS", "url": "https://apps.apple.com/app/hudhud-hesap-makinesi/id6836351881", "author": {"@type": "Organization", "name": "Hudhud Apps"}}, {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Soyağacım", "applicationCategory": "LifestyleApplication", "operatingSystem": "iOS", "url": "https://apps.apple.com/app/id6836665022", "author": {"@type": "Organization", "name": "Hudhud Apps"}}]</script>
 <script>try{var __t=localStorage.getItem("tema");if(__t)document.documentElement.setAttribute("data-tema",__t)}catch(e){}</script>
@@ -643,8 +643,7 @@ var $=function(s,c){return(c||document).querySelector(s)},$$=function(s,c){retur
 var azalt=matchMedia('(prefers-reduced-motion:reduce)').matches,app=0,dil='tr',ekTema='light';
 function t(k){var d=T[dil];if(d&&k in d)return d[k];return T.en[k]||T.tr[k]||k}
 function el(tg,c,h){var e=document.createElement(tg);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
-var kd=null;try{kd=localStorage.getItem('dil')}catch(e){}
-if(!kd||!T[kd]){var nl=((navigator.languages&&navigator.languages[0])||navigator.language||'tr').slice(0,2).toLowerCase();kd=T[nl]?nl:'en'}
+var kd=document.documentElement.lang||'tr';if(kd==='tr'&&!/bot|crawl|spider|slurp|lighthouse/i.test(navigator.userAgent)){var sv=null,ds=null;try{sv=localStorage.getItem('dil');ds=sessionStorage.getItem('dilsec')}catch(e){}if(!ds){var nl=sv&&T[sv]?sv:((navigator.languages&&navigator.languages[0])||navigator.language||'tr').slice(0,2).toLowerCase();if(!T[nl])nl='en';if(nl!=='tr')location.replace('/'+nl+'/'+location.hash)}}
 dil=kd;
 /* tema (site) */
 var kok=document.documentElement,tb=$('#tema'),sistemKoyu=matchMedia('(prefers-color-scheme:dark)');
@@ -761,11 +760,11 @@ function sec(k){app=k;var a=A[k];document.documentElement.style.setProperty('--a
  heroKur();ozKur();detKur();vitKur()}
 /* dil */
 var dm=$('#dilmenu'),db=$('#dilb');
-DILLER.forEach(function(d){var b=el('button',null,d[1]+'<small>'+d[0].toUpperCase()+'</small>');b.dataset.k=d[0];b.onclick=function(){dil=d[0];kaydet('dil',dil);dilKapat();uygula()};dm.appendChild(b)});
+DILLER.forEach(function(d){var b=el('button',null,d[1]+'<small>'+d[0].toUpperCase()+'</small>');b.dataset.k=d[0];b.onclick=function(){kaydet('dil',d[0]);try{sessionStorage.setItem('dilsec','1')}catch(e){}dilKapat();if(d[0]!==dil)location.href=(d[0]==='tr'?'/':'/'+d[0]+'/')+location.hash};dm.appendChild(b)});
 function dilKapat(){dm.hidden=true;db.setAttribute('aria-expanded','false')}
 db.onclick=function(e){e.stopPropagation();var ac=dm.hidden;dm.hidden=!ac;db.setAttribute('aria-expanded',String(ac))};
 document.addEventListener('click',function(e){if(!dm.hidden&&!dm.contains(e.target))dilKapat()});
-function uygula(){document.documentElement.lang=dil;baslik();$$('.yasalnot').forEach(function(e){e.hidden=(dil==='tr'||dil==='en')});var md=$('meta[name=description]');if(md)md.content=t('hero_p');
+function uygula(){document.documentElement.lang=dil;baslik();$$('.yasalnot').forEach(function(e){e.hidden=(dil==='tr'||dil==='en')});
  $$('[data-i]').forEach(function(e){e.innerHTML=t(e.dataset.i)});
  $$('[data-ia]').forEach(function(e){e.setAttribute('aria-label',t(e.dataset.ia));if(e.id==='tema')e.title=t(e.dataset.ia)});
  $('#dilkod').textContent=dil.toUpperCase();
