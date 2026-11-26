@@ -32,7 +32,7 @@ html[data-l="tr"] .lg[data-l="tr"]{display:block}html[data-l="en"] .lg[data-l="e
 .uyg b{display:block;font-weight:500;font-size:19px;letter-spacing:-.02em}.uyg span{color:var(--soluk);font-size:14px}
 h1{font-weight:500;font-size:clamp(26px,5vw,34px);line-height:1.15;letter-spacing:-.03em;margin:10px 0 6px}
 .tag{font-size:15.5px;color:var(--soluk);margin:0 0 4px;line-height:1.5}
-.surum-bilgi{font-size:12.5px;color:var(--soluk);margin:0 0 16px;opacity:.85}
+.surum-bilgi{font-size:14px;font-weight:500;color:#007AFF;margin:0 0 16px}
 .cta{display:flex;justify-content:flex-start;gap:10px;flex-wrap:wrap;margin:0}
 .btn{display:inline-block;background:var(--a);color:#fff!important;text-decoration:none;font-weight:500;padding:9px 18px;border-radius:12px;margin:0;font-size:14.5px;transition:transform .25s cubic-bezier(.34,1.56,.64,1),box-shadow .25s ease}
 .btn:hover{transform:scale(1.06);box-shadow:0 6px 16px rgba(0,0,0,.18)}
@@ -52,7 +52,7 @@ footer{max-width:1080px;margin:0 auto;padding:22px 20px 40px;border-top:1px soli
 footer a{color:inherit}
 .sol{display:flex;align-items:center;gap:10px}.temaB{width:34px;height:34px;flex:none;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--cizgi);background:var(--kart);color:var(--soluk);border-radius:999px;cursor:pointer;padding:0}.temaB:hover{color:var(--yazi)}.temaB svg{width:17px;height:17px}
 html[data-l="tr"] .lg[data-l="en"],html[data-l="en"] .lg[data-l="tr"]{display:none!important}
-</style>
+html[data-tema=dark] .surum-bilgi{color:#0A84FF}@media(prefers-color-scheme:dark){html:not([data-tema=light]) .surum-bilgi{color:#0A84FF}}</style>
 </head>
 <body>
 <div class="ust">
@@ -67,7 +67,7 @@ html[data-l="tr"] .lg[data-l="en"],html[data-l="en"] .lg[data-l="tr"]{display:no
 <h1><span class="lg" data-l="tr">Windows programlarını güvenle kaldırın</span><span class="lg" data-l="en">Safely uninstall Windows programs</span></h1>
 <p class="tag lg" data-l="tr">Programları kaldırır, Windows Mağazası uygulamalarını ve başlangıç öğelerini yönetir; kaldırmadan sonra geride kalan dosya ve kayıt defteri izlerini güvenle temizler.</p>
 <p class="tag lg" data-l="en">Uninstalls programs, manages Windows Store apps and startup items, and safely cleans up leftover files and registry entries after uninstalling.</p>
-<p class="surum-bilgi"><span class="lg" data-l="tr">Sürüm <span class="surum-no">—</span> &middot; <span class="surum-tarih">—</span> tarihinde yayımlandı</span><span class="lg" data-l="en">Version <span class="surum-no">—</span> &middot; released <span class="surum-tarih">—</span></span></p>
+<p class="surum-bilgi"><span class="lg" data-l="tr">Güncel Sürüm: V <span class="surum-no">—</span> &middot; Son güncelleme: <span class="surum-tarih">—</span></span><span class="lg" data-l="en">Current Version: V <span class="surum-no">—</span> &middot; Last updated: <span class="surum-tarih">—</span></span></p>
 <div class="cta">
 <a class="btn" href="indir/HudhudUninstaller-Setup.exe"><span class="lg" data-l="tr">&#11015; Kurulum Dosyasını İndir</span><span class="lg" data-l="en">&#11015; Download Installer</span></a>
 <a class="btn ikinci" href="indir/HudhudUninstaller-Portable.zip"><span class="lg" data-l="tr">Taşınabilir (.zip)</span><span class="lg" data-l="en">Portable (.zip)</span></a>
